@@ -5,6 +5,7 @@ var $saveNoteBtn = $(".save-note");
 var $newNoteBtn = $(".new-note");
 var $noteList = $(".list-container .list-group");
 
+
 // activeNote is used to keep track of the note in the textarea
 var activeNote = {};
 
@@ -52,7 +53,9 @@ var renderActiveNote = function() {
 
 // Get the note data from the inputs, save it to the db and update the view
 var handleNoteSave = function() {
+  var id = Math.floor(Math.random() * 1000)
   var newNote = {
+    id: id,
     title: $noteTitle.val(),
     text: $noteText.val()
   };
@@ -145,6 +148,6 @@ getAndRenderNotes();
 
 
 
-app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
-  });
+// app.listen(PORT, function() {
+//     console.log("App listening on PORT " + PORT);
+//   });
