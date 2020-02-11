@@ -29,7 +29,7 @@ var saveNote = function(note) {
 // A function for deleting a note from the db
 var deleteNote = function(id) {
   return $.ajax({
-    url: "api/notes/" + id,
+    url: "/api/notes/" + id,
     method: "DELETE"
   });
 };
@@ -53,7 +53,7 @@ var renderActiveNote = function() {
 
 // Get the note data from the inputs, save it to the db and update the view
 var handleNoteSave = function() {
-  var id = Math.floor(Math.random() * 1000)
+  var id = Math.floor(Math.random() * 10000)
   var newNote = {
     id: id,
     title: $noteTitle.val(),
@@ -78,6 +78,8 @@ var handleNoteDelete = function(event) {
   if (activeNote.id === note.id) {
     activeNote = {};
   }
+
+ 
 
   deleteNote(note.id).then(function() {
     getAndRenderNotes();
@@ -134,6 +136,7 @@ var getAndRenderNotes = function() {
   return getNotes().then(function(data) {
     renderNoteList(data);
   });
+  
 };
 
 $saveNoteBtn.on("click", handleNoteSave);
@@ -145,7 +148,6 @@ $noteText.on("keyup", handleRenderSaveBtn);
 
 // Gets and renders the initial list of notes
 getAndRenderNotes();
-
 
 
 // app.listen(PORT, function() {
