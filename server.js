@@ -10,7 +10,6 @@ var PORT = 3000;
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use('/notes', express.static('static'))
 app.use('/static', express.static('static'))
 
 app.get("/", function(req, res) {
@@ -24,7 +23,7 @@ app.get("/notes", function(req, res) {
   });
 
   app.get("/api/notes", function(req, res) {
-    return res.sendFile(path.join(__dirname, "data/db.json"));
+    return res.json(database);
   });
 
   app.post("/api/notes", function(req, res) {
@@ -41,7 +40,7 @@ app.get("/notes", function(req, res) {
     fs.writeFile('data/db.json', dbJSON, function(err) {
     if(err) {console.log(err);
      }});
- 
+     return res.json(database);
   });
     
   
@@ -63,7 +62,7 @@ app.get("/notes", function(req, res) {
           if(err) throw err;
         })
       })()
-    return ("you messed up")
+      return res.json(database);
   })
 
   app.listen(PORT, function() {
